@@ -6,7 +6,13 @@ const port = process.env.PORT || 5000;
 
 
 
-app.use(cors())
+app.use(cors({
+    origin: [
+        "http://localhost:5000",
+        "https://b-cycle-server.vercel.app",
+    ],
+    credentials: true,
+}))
 app.use(express.json())
 
 
@@ -25,7 +31,6 @@ const client = new MongoClient(uri, {
 
 async function run() {
     try {
-        await client.connect();
 
 
         const cycleCollection = client.db("bCycleDB").collection('cycles');
